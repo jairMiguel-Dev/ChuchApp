@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Vida Nova - Conexão Divina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-animation">
+            <div class="cross-animation"></div>
+            <h2>CONEXÃO DIVINA</h2>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Header with Parallax Effect -->
+        <header class="parallax-header">
+            <div class="header-overlay"></div>
+            <h1>IGREJA <span>VIDA NOVA</span></h1>
+            <p>Conectando você ao amor de Cristo</p>
+            <div class="header-verse">
+                <p>"Eu vim para que tenham vida, e a tenham em abundância."</p>
+                <p>João 10:10</p>
+            </div>
+        </header>
+
+        <!-- Floating Navigation -->
+        <nav class="floating-nav">
+            <div class="nav-item active" data-section="home">
+                <i class="fas fa-home"></i>
+                <span>Início</span>
+            </div>
+            <div class="nav-item" data-section="events">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Eventos</span>
+            </div>
+            <div class="nav-item" data-section="sermons">
+                <i class="fas fa-bible"></i>
+                <span>Pregações</span>
+            </div>
+            <div class="nav-item" data-section="give">
+                <i class="fas fa-hand-holding-heart"></i>
+                <span>Ofertar</span>
+            </div>
+            <div class="nav-item" data-section="more">
+                <i class="fas fa-ellipsis-h"></i>
+                <span>Mais</span>
+            </div>
+        </nav>
+
+        <!-- Main Content Sections -->
+        <main>
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <div class="live-banner pulse">
+                    <div class="live-badge">AO VIVO</div>
+                    <h3>Culto de Libertação</h3>
+                    <p>Participe agora!</p>
+                    <button class="glow-button">ASSISTIR <i class="fas fa-play"></i></button>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-card" style="--card-color: #6a3093;">
+                        <i class="fas fa-pray"></i>
+                        <span>Pedido de Oração</span>
+                    </div>
+                    <div class="action-card" style="--card-color: #1d6fa5;">
+                        <i class="fas fa-bible"></i>
+                        <span>Bíblia do Dia</span>
+                    </div>
+                    <div class="action-card" style="--card-color: #e74c3c;">
+                        <i class="fas fa-music"></i>
+                        <span>Hinos</span>
+                    </div>
+                </div>
+
+                <div class="verse-of-day">
+                    <h3>VERSÍCULO DO DIA</h3>
+                    <div class="verse-card">
+                        <p class="verse-text">"Porque Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna."</p>
+                        <p class="verse-reference">João 3:16</p>
+                        <div class="verse-actions">
+                            <button><i class="fas fa-share-alt"></i> Compartilhar</button>
+                            <button><i class="fas fa-bookmark"></i> Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Section -->
+            <section id="events" class="content-section">
+                <h2 class="section-title">PRÓXIMOS EVENTOS</h2>
+                
+                <div class="event-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="day">25</span>
+                            <span class="month">JUL</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Retiro de Jovens</h3>
+                            <p>Sábado, 9:00 - 18:00</p>
+                            <p>Parque das Montanhas</p>
+                            <button>DETALHES</button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item highlight">
+                        <div class="timeline-date">
+                            <span class="day">28</span>
+                            <span class="month">JUL</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Culto de Milagres</h3>
+                            <p>Terça-feira, 19:30</p>
+                            <p>Sede Principal</p>
+                            <button>DETALHES</button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="day">30</span>
+                            <span class="month">JUL</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Escola Bíblica</h3>
+                            <p>Quinta-feira, 20:00</p>
+                            <p>Online</p>
+                            <button>DETALHES</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sermons Section -->
+            <section id="sermons" class="content-section">
+                <h2 class="section-title">ÚLTIMAS PREGAÇÕES</h2>
+                
+                <div class="sermon-filters">
+                    <button class="active">Todas</button>
+                    <button>Series</button>
+                    <button>Mais assistidas</button>
+                </div>
+                
+                <div class="sermon-list">
+                    <div class="sermon-card">
+                        <div class="sermon-thumbnail" style="background-image: url('https://source.unsplash.com/random/300x200?church')">
+                            <div class="play-overlay"><i class="fas fa-play"></i></div>
+                            <span class="duration">45:22</span>
+                        </div>
+                        <div class="sermon-info">
+                            <h3>Vencendo as Batalhas Espirituais</h3>
+                            <p class="preacher">Pr. João Silva</p>
+                            <p class="date">20/07/2023 • 1.2K visualizações</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sermon-card featured">
+                        <div class="sermon-thumbnail" style="background-image: url('https://source.unsplash.com/random/300x200?bible')">
+                            <div class="play-overlay"><i class="fas fa-play"></i></div>
+                            <span class="duration">52:10</span>
+                        </div>
+                        <div class="sermon-info">
+                            <h3>O Poder da Fé - Parte 3</h3>
+                            <p class="preacher">Pr. Maria Santos</p>
+                            <p class="date">18/07/2023 • 2.5K visualizações</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Give Section -->
+            <section id="give" class="content-section">
+                <div class="give-hero">
+                    <h2>SEMEIE SUA FÉ</h2>
+                    <p>"Cada um dê conforme determinou em seu coração, não com pesar ou por obrigação, pois Deus ama quem dá com alegria."</p>
+                    <p class="verse-ref">2 Coríntios 9:7</p>
+                </div>
+                
+                <div class="give-options">
+                    <div class="give-option">
+                        <i class="fas fa-church"></i>
+                        <h3>Dízimo</h3>
+                        <p>Contribuição regular</p>
+                        <button>OFERECER</button>
+                    </div>
+                    
+                    <div class="give-option highlight">
+                        <i class="fas fa-gift"></i>
+                        <h3>Oferta</h3>
+                        <p>Contribuição especial</p>
+                        <button>OFERECER</button>
+                    </div>
+                    
+                    <div class="give-option">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Missões</h3>
+                        <p>Apoie nossos missionários</p>
+                        <button>DOAR</button>
+                    </div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h3>MÉTODOS DE PAGAMENTO</h3>
+                    <div class="method-icons">
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amazon-pay"></i>
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- More Section -->
+            <section id="more" class="content-section">
+                <div class="user-profile">
+                    <div class="profile-pic"></div>
+                    <h3>Bem-vindo, Irmão(ã)</h3>
+                    <p>Membro desde Jan 2023</p>
+                </div>
+                
+                <div class="more-options">
+                    <div class="more-option">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Minha Célula</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="more-option">
+                        <i class="fas fa-book-open"></i>
+                        <span>Estudos Bíblicos</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="more-option">
+                        <i class="fas fa-hands-praying"></i>
+                        <span>Pedidos de Oração</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="more-option">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Notícias</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="more-option">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Nossas Unidades</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="more-option">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Audio Player (fixed at bottom when playing) -->
+    <div class="audio-player">
+        <div class="player-info">
+            <h4>Orando sem cessar</h4>
+            <p>Pr. João Silva</p>
+        </div>
+        <div class="player-controls">
+            <button><i class="fas fa-step-backward"></i></button>
+            <button class="play-pause"><i class="fas fa-play"></i></button>
+            <button><i class="fas fa-step-forward"></i></button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
