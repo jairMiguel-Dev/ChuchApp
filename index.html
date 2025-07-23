@@ -3,18 +3,1310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Igreja ### - Conexão Divina</title>
+    <title>Conexão Divina - Igreja Evangélica</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-dark: #6c3483;
+            --primary-light: #b483ce;
+            --secondary: #3498db;
+            --accent: #ff6b6b;
+            --accent-light: #ff8e8e;
+            --success: #2ecc71;
+            --gold: #f1c40f;
+            --dark: #0f0f1b;
+            --darker: #0a0a12;
+            --light: #f9f9ff;
+            --text: #e0e0ff;
+            --text-secondary: #a0a0d0;
+            --glass: rgba(25, 25, 45, 0.6);
+            --glass-light: rgba(60, 60, 90, 0.4);
+            --glow: 0 0 15px rgba(142, 68, 173, 0.5);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(ellipse at bottom, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(142, 68, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 107, 107, 0.05) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .app-container {
+            max-width: 100%;
+            overflow: hidden;
+            min-height: 100vh;
+            padding-bottom: 100px;
+            position: relative;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+
+        .loading-content {
+            text-align: center;
+            transform: translateY(-20px);
+        }
+
+        .cross-animation {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin: 0 auto 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .cross-animation::before, .cross-animation::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            box-shadow: var(--glow);
+        }
+
+        .cross-animation::before {
+            width: 100%;
+            height: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .cross-animation::after {
+            width: 16px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .loading-text {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .loading-subtext {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .parallax-header {
+            height: 320px;
+            background: 
+                linear-gradient(rgba(15, 15, 27, 0.7), rgba(10, 10, 18, 0.9)), 
+                url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, var(--dark));
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .church-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--text), var(--light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .church-name span {
+            color: var(--accent);
+        }
+
+        .church-tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+
+        .header-verse {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            max-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-verse::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--glass-light), transparent);
+            opacity: 0.3;
+        }
+
+        .verse-text {
+            font-style: italic;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            color: var(--primary-light);
+            text-align: right;
+            font-size: 0.95rem;
+        }
+
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 12px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(142, 68, 173, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 90%;
+            max-width: 450px;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 15px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .nav-item i {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--light);
+            transform: translateY(-15px);
+        }
+
+        .nav-item.active i {
+            color: var(--accent);
+            transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .nav-item.active span {
+            color: var(--accent-light);
+            font-weight: 700;
+        }
+
+        .nav-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 25px 20px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--light);
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            box-shadow: var(--glow);
+        }
+
+        /* Home Section */
+        .live-banner {
+            background: linear-gradient(135deg, var(--primary-dark), var(--darker));
+            color: var(--light);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--glow);
+            border: 1px solid rgba(142, 68, 173, 0.3);
+            animation: pulseBorder 3s infinite;
+        }
+
+        .live-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, var(--accent), var(--accent-light));
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .live-banner h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .live-banner p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+            max-width: 80%;
+        }
+
+        .glow-button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--light);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(142, 68, 173, 0.4);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .glow-button i {
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+
+        .glow-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .glow-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(142, 68, 173, 0.6), 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .glow-button:hover::after {
+            transform: translateX(100%);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            color: var(--light);
+            padding: 20px 10px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--glass-light), transparent);
+            transform: rotate(45deg);
+            opacity: 0.3;
+            transition: var(--transition);
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--primary);
+        }
+
+        .action-card:hover::before {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .action-card span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .verse-of-day {
+            margin-bottom: 30px;
+        }
+
+        .verse-of-day h3 {
+            font-size: 1.3rem;
+            color: var(--light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .verse-of-day h3::before, .verse-of-day h3::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 0 15px;
+        }
+
+        .verse-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(142, 68, 173, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verse-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, var(--glass-light), transparent);
+            opacity: 0.3;
+        }
+
+        .verse-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-style: italic;
+            text-align: center;
+            position: relative;
+        }
+
+        .verse-reference {
+            font-size: 1rem;
+            color: var(--primary-light);
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+        }
+
+        .verse-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .verse-actions button {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary-light);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .verse-actions button i {
+            margin-right: 8px;
+        }
+
+        .verse-actions button:hover {
+            background: var(--primary);
+            color: var(--light);
+            box-shadow: var(--glow);
+        }
+
+        /* Events Section */
+        .event-timeline {
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 80px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: -25px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            opacity: 0.3;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 0;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--darker));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            border: 2px solid var(--primary);
+        }
+
+        .timeline-item.highlight .timeline-date {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-color: var(--accent);
+        }
+
+        .day {
+            font-size: 1.6rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--light);
+        }
+
+        .month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .timeline-content {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--glass-light), transparent);
+            opacity: 0.3;
+        }
+
+        .timeline-item.highlight .timeline-content {
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-content p i {
+            margin-right: 8px;
+            color: var(--primary-light);
+        }
+
+        .timeline-content button {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .timeline-content button i {
+            margin-left: 8px;
+        }
+
+        .timeline-content button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+
+        /* Sermons Section */
+        .sermon-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+
+        .sermon-filters::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .sermon-filters::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+        }
+
+        .sermon-filters button {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary-light);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .sermon-filters button.active {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            box-shadow: var(--glow);
+        }
+
+        .sermon-filters button:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .sermon-list {
+            margin-top: 15px;
+        }
+
+        .sermon-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sermon-card.featured {
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .sermon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), var(--glow);
+        }
+
+        .sermon-thumbnail {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .sermon-thumbnail::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, var(--dark), transparent);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 27, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .sermon-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-overlay i {
+            color: var(--light);
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .duration {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(15, 15, 27, 0.7);
+            color: var(--light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        .sermon-info {
+            padding: 20px;
+            position: relative;
+        }
+
+        .sermon-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .sermon-info .preacher {
+            font-size: 1rem;
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sermon-info .preacher::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .sermon-info .date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .sermon-info .date i {
+            margin-right: 8px;
+            color: var(--primary-light);
+        }
+
+        /* Give Section */
+        .give-hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--darker));
+            color: var(--light);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--glow);
+            border: 1px solid rgba(142, 68, 173, 0.3);
+        }
+
+        .give-hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--glass-light), transparent);
+            transform: rotate(30deg);
+            opacity: 0.2;
+        }
+
+        .give-hero h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            position: relative;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--gold), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .give-hero p {
+            margin-bottom: 10px;
+            position: relative;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 15px;
+        }
+
+        .verse-ref {
+            font-weight: 700;
+            color: var(--gold);
+            margin-top: 15px;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .give-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .give-option {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .give-option::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--glass-light), transparent);
+            opacity: 0.3;
+        }
+
+        .give-option.highlight {
+            border: 2px solid var(--gold);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(241, 196, 15, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .give-option i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .give-option.highlight i {
+            background: linear-gradient(45deg, var(--gold), var(--accent-light));
+            -webkit-background-clip: text;
+        }
+
+        .give-option h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .give-option p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .give-option button {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .give-option.highlight button {
+            background: linear-gradient(45deg, var(--gold), var(--accent));
+        }
+
+        .give-option button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+
+        .payment-methods {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .payment-methods h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .method-icons {
+            display: flex;
+            justify-content: space-around;
+            font-size: 2.2rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .method-icons i {
+            transition: var(--transition);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .method-icons i:hover {
+            color: var(--primary-light);
+            transform: translateY(-5px);
+            text-shadow: 0 0 10px rgba(142, 68, 173, 0.5);
+        }
+
+        /* More Section */
+        .user-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--light);
+            font-size: 3rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(142, 68, 173, 0.5);
+            border: 3px solid var(--light);
+        }
+
+        .user-profile h3 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .user-profile p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .more-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .more-option {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .more-option::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--glass-light), transparent);
+            opacity: 0.3;
+        }
+
+        .more-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 15px var(--primary);
+        }
+
+        .more-option i:first-child {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .more-option span {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .more-option i:last-child {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Audio Player */
+        .audio-player {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: bottom 0.5s ease;
+            z-index: 90;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .audio-player.active {
+            bottom: 0;
+        }
+
+        .player-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .player-info h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+            color: var(--light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .player-controls button {
+            background: transparent;
+            border: none;
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .player-controls button.play-pause {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--light);
+            box-shadow: 0 0 15px rgba(142, 68, 173, 0.5);
+        }
+
+        .player-controls button:hover {
+            color: var(--light);
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress {
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.1s linear;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 10px rgba(142, 68, 173, 0.4); }
+            50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(142, 68, 173, 0.7); }
+            100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 10px rgba(142, 68, 173, 0.4); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .church-name {
+                font-size: 2.2rem;
+            }
+            
+            .quick-actions, .give-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .action-card, .give-option {
+                padding: 15px 5px;
+            }
+            
+            .action-card i, .give-option i {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 450px;
+                margin: 0 auto;
+                min-height: 100vh;
+                position: relative;
+            }
+            
+            .parallax-header {
+                height: 350px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen">
-        <div class="loading-animation">
+        <div class="loading-content">
             <div class="cross-animation"></div>
-            <h2>CONEXÃO DIVINA</h2>
+            <div class="loading-text">CONEXÃO DIVINA</div>
+            <div class="loading-subtext">Carregando a presença de Deus...</div>
         </div>
     </div>
 
@@ -23,11 +1315,13 @@
         <!-- Header with Parallax Effect -->
         <header class="parallax-header">
             <div class="header-overlay"></div>
-            <h1>IGREJA <span>###</span></h1>
-            <p>Conectando você ao amor de Cristo</p>
-            <div class="header-verse">
-                <p>"Eu vim para que tenham vida, e a tenham em abundância."</p>
-                <p>João 10:10</p>
+            <div class="header-content">
+                <h1 class="church-name">IGREJA <span>VIDA NOVA</span></h1>
+                <p class="church-tagline">Conectando você ao amor de Cristo</p>
+                <div class="header-verse">
+                    <p class="verse-text">"Eu vim para que tenham vida, e a tenham em abundância."</p>
+                    <p class="verse-ref">João 10:10</p>
+                </div>
             </div>
         </header>
 
@@ -59,23 +1353,23 @@
         <main>
             <!-- Home Section -->
             <section id="home" class="content-section active">
-                <div class="live-banner pulse">
+                <div class="live-banner">
                     <div class="live-badge">AO VIVO</div>
                     <h3>Culto de Libertação</h3>
-                    <p>Participe agora!</p>
+                    <p>Participe agora deste momento de poder e transformação!</p>
                     <button class="glow-button">ASSISTIR <i class="fas fa-play"></i></button>
                 </div>
 
                 <div class="quick-actions">
-                    <div class="action-card" style="--card-color: #6a3093;">
+                    <div class="action-card">
                         <i class="fas fa-pray"></i>
                         <span>Pedido de Oração</span>
                     </div>
-                    <div class="action-card" style="--card-color: #1d6fa5;">
+                    <div class="action-card">
                         <i class="fas fa-bible"></i>
                         <span>Bíblia do Dia</span>
                     </div>
-                    <div class="action-card" style="--card-color: #e74c3c;">
+                    <div class="action-card">
                         <i class="fas fa-music"></i>
                         <span>Hinos</span>
                     </div>
@@ -106,9 +1400,9 @@
                         </div>
                         <div class="timeline-content">
                             <h3>Retiro de Jovens</h3>
-                            <p>Sábado, 9:00 - 18:00</p>
-                            <p>Parque das Montanhas</p>
-                            <button>DETALHES</button>
+                            <p><i class="fas fa-clock"></i> Sábado, 9:00 - 18:00</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Parque das Montanhas</p>
+                            <button>DETALHES <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                     
@@ -119,9 +1413,9 @@
                         </div>
                         <div class="timeline-content">
                             <h3>Culto de Milagres</h3>
-                            <p>Terça-feira, 19:30</p>
-                            <p>Sede Principal</p>
-                            <button>DETALHES</button>
+                            <p><i class="fas fa-clock"></i> Terça-feira, 19:30</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Sede Principal</p>
+                            <button>DETALHES <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                     
@@ -132,9 +1426,9 @@
                         </div>
                         <div class="timeline-content">
                             <h3>Escola Bíblica</h3>
-                            <p>Quinta-feira, 20:00</p>
-                            <p>Online</p>
-                            <button>DETALHES</button>
+                            <p><i class="fas fa-clock"></i> Quinta-feira, 20:00</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Online</p>
+                            <button>DETALHES <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -148,30 +1442,32 @@
                     <button class="active">Todas</button>
                     <button>Series</button>
                     <button>Mais assistidas</button>
+                    <button>Novas</button>
+                    <button>Favoritas</button>
                 </div>
                 
                 <div class="sermon-list">
                     <div class="sermon-card">
-                        <div class="sermon-thumbnail" style="background-image: url('https://source.unsplash.com/random/300x200?church')">
+                        <div class="sermon-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3')">
                             <div class="play-overlay"><i class="fas fa-play"></i></div>
                             <span class="duration">45:22</span>
                         </div>
                         <div class="sermon-info">
                             <h3>Vencendo as Batalhas Espirituais</h3>
                             <p class="preacher">Pr. João Silva</p>
-                            <p class="date">20/07/2023 • 1.2K visualizações</p>
+                            <p class="date"><i class="fas fa-eye"></i> 1.2K visualizações • 20/07/2023</p>
                         </div>
                     </div>
                     
                     <div class="sermon-card featured">
-                        <div class="sermon-thumbnail" style="background-image: url('https://source.unsplash.com/random/300x200?bible')">
+                        <div class="sermon-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1534531409543-069f6205d0e3?ixlib=rb-4.0.3')">
                             <div class="play-overlay"><i class="fas fa-play"></i></div>
                             <span class="duration">52:10</span>
                         </div>
                         <div class="sermon-info">
                             <h3>O Poder da Fé - Parte 3</h3>
                             <p class="preacher">Pr. Maria Santos</p>
-                            <p class="date">18/07/2023 • 2.5K visualizações</p>
+                            <p class="date"><i class="fas fa-eye"></i> 2.5K visualizações • 18/07/2023</p>
                         </div>
                     </div>
                 </div>
@@ -214,7 +1510,7 @@
                         <i class="fab fa-cc-paypal"></i>
                         <i class="fab fa-cc-visa"></i>
                         <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-amazon-pay"></i>
+                        <i class="fab fa-cc-apple-pay"></i>
                         <i class="fas fa-barcode"></i>
                     </div>
                 </div>
@@ -223,7 +1519,7 @@
             <!-- More Section -->
             <section id="more" class="content-section">
                 <div class="user-profile">
-                    <div class="profile-pic"></div>
+                    <div class="profile-pic">J</div>
                     <h3>Bem-vindo, Irmão(ã)</h3>
                     <p>Membro desde Jan 2023</p>
                 </div>
@@ -264,11 +1560,11 @@
         </main>
     </div>
 
-    <!-- Audio Player (fixed at bottom when playing) -->
+    <!-- Audio Player -->
     <div class="audio-player">
         <div class="player-info">
             <h4>Orando sem cessar</h4>
-            <p>Pr. João Silva</p>
+            <p>Pr. João Silva • 35:42</p>
         </div>
         <div class="player-controls">
             <button><i class="fas fa-step-backward"></i></button>
@@ -280,6 +1576,152 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate loading screen
+            setTimeout(function() {
+                document.querySelector('.loading-screen').style.opacity = '0';
+                document.querySelector('.loading-screen').style.visibility = 'hidden';
+            }, 2500);
+            
+            // Navigation functionality
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all nav items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked nav item
+                    this.classList.add('active');
+                    
+                    // Hide all content sections
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show the corresponding content section
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // Scroll to top of the section
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            // Audio player functionality
+            const audioPlayer = document.querySelector('.audio-player');
+            const playPauseBtn = document.querySelector('.play-pause');
+            let isPlaying = false;
+            
+            // Show audio player after 5 seconds (simulating audio starting)
+            setTimeout(function() {
+                audioPlayer.classList.add('active');
+            }, 5000);
+            
+            playPauseBtn.addEventListener('click', function() {
+                isPlaying = !isPlaying;
+                
+                if (isPlaying) {
+                    this.innerHTML = '<i class="fas fa-pause"></i>';
+                    audioPlayer.classList.add('playing');
+                    simulateProgress();
+                } else {
+                    this.innerHTML = '<i class="fas fa-play"></i>';
+                    audioPlayer.classList.remove('playing');
+                }
+            });
+            
+            // Simulate progress bar movement
+            function simulateProgress() {
+                if (!isPlaying) return;
+                
+                const progressBar = document.querySelector('.progress');
+                let width = parseFloat(progressBar.style.width) || 0;
+                
+                if (width >= 100) {
+                    width = 0;
+                    isPlaying = false;
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    audioPlayer.classList.remove('playing');
+                } else {
+                    width += 0.5;
+                    progressBar.style.width = width + '%';
+                    setTimeout(simulateProgress, 100);
+                }
+            }
+            
+            // Live banner pulse effect
+            const liveBanner = document.querySelector('.live-banner');
+            
+            if (liveBanner) {
+                setInterval(function() {
+                    liveBanner.classList.toggle('pulse');
+                }, 3000);
+            }
+            
+            // Verse of the day share functionality
+            const shareButtons = document.querySelectorAll('.verse-actions button');
+            
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const verseText = document.querySelector('.verse-text').textContent;
+                    const verseRef = document.querySelector('.verse-reference').textContent;
+                    
+                    if (this.querySelector('.fa-share-alt')) {
+                        // Share functionality
+                        if (navigator.share) {
+                            navigator.share({
+                                title: 'Versículo do Dia',
+                                text: `${verseText} - ${verseRef}`,
+                                url: window.location.href
+                            }).catch(err => {
+                                console.log('Error sharing:', err);
+                            });
+                        } else {
+                            // Fallback for browsers that don't support Web Share API
+                            alert('Compartilhar: ' + verseText + ' - ' + verseRef);
+                        }
+                    } else {
+                        // Save functionality
+                        this.innerHTML = '<i class="fas fa-check"></i> Salvo';
+                        this.style.background = 'var(--success)';
+                        this.style.color = 'var(--light)';
+                        this.style.borderColor = 'transparent';
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-bookmark"></i> Salvar';
+                            this.style.background = '';
+                            this.style.color = '';
+                            this.style.borderColor = '';
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.action-card, .sermon-card, .timeline-content, .give-option, .more-option');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3), 0 0 15px var(--primary)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Parallax effect for header
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.pageYOffset;
+                const parallaxHeader = document.querySelector('.parallax-header');
+                
+                if (parallaxHeader) {
+                    parallaxHeader.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
